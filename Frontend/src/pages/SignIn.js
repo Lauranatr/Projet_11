@@ -30,6 +30,7 @@ const SignIn = () => {
 
       if (response.ok) {
         const dataUser = await response.json();
+        dispatch(setSignIn(dataUser));
         localStorage.setItem("token", dataUser.body.token);
         navigate("/profile");
       } else {
