@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setProfile } from "../features/profileSlice";
+import EditButton from "../components/EditButton";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ const User = () => {
             <br />
             {profile.firstName} {profile.lastName} !
           </h1>
-          <button className="edit-button">Edit Name</button>
+          <EditButton />
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">

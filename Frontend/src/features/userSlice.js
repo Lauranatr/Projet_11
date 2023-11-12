@@ -14,7 +14,7 @@ const userSlice = createSlice({
     },
     reducers: {
         setSignIn: (state, action) => {
-            state.token = action.payload.response.body.token;
+            state.token = action.payload.body.token;
         },
         setSignOut: (state) => {
             state.token = null;
