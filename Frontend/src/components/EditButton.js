@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUserProfile } from "../features/updateUserName";
 import { setUpdateUserName } from "../features/profileSlice";
 
 
@@ -15,7 +14,8 @@ export default function EditButton() {
   const dispatch = useDispatch();
 
   const handleEdit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
     if (!newUserName) {
       setError("Le champ ne peut pas être vide");
       return;
@@ -36,7 +36,7 @@ export default function EditButton() {
         }
       );
 
-      if (response.status === 200) {
+      if (response.ok) {
         dispatch(setUpdateUserName(newUserName));
         setIsEditing(false);
       } else {
@@ -50,6 +50,7 @@ export default function EditButton() {
   const handleCancelEdit = () => {
     setIsEditing(false);
   };
+
 
   return (
     <section className="edit-content">

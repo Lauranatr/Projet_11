@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/argentBankLogo.png";
+import Logo from "../assets/argentBankLogo.webp";
 import { useSelector, useDispatch } from "react-redux";
 import { setSignOut } from "../features/userSlice";
 import User from "../assets/user.webp";
-import { updateUserProfile } from "../features/updateUserName";
+import { setUpdateUserName } from "../features/profileSlice";
 
 const Header = () => {
   const token = useSelector((state) => state.auth.token);
@@ -16,7 +16,6 @@ const Header = () => {
     dispatch(setSignOut({ token }));
   };
 
-  console.log(token, dataUser);
   return (
     <header>
       <nav className="cont-nav">
@@ -35,7 +34,7 @@ const Header = () => {
           to={token ? "/" : "/signin"}
           onClick={() => {
             if (token) {
-              dispatch(updateUserProfile());
+              dispatch(setUpdateUserName());
               handleLogout();
             }
           }}
