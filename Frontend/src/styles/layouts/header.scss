@@ -2,10 +2,8 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
-   flex-direction: column;
    padding: 0px 40px;
-
-   height: 130px;
+   row-gap: 5px;
    border-bottom: 1px solid #ccc;
 
    .logo-header {
@@ -13,13 +11,25 @@
       margin: 10px 0 0 0;
    }
 
-   img {
-      height: 30px;
+   .sign-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-family: Avenir, Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      color: black;
    }
 
-   @media (min-width: 920px) {
-      height: 125px;
-      flex-direction: row;
+   img {
+      height: 40px;
+   }
+
+   @media (max-width: 919px) {
+      height: 200px;
+      row-gap: 10px;
+      justify-content: center;
+      flex-direction: column;
       padding: none;
       border-bottom: 1px solid #cccccc00;
    }

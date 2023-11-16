@@ -1,28 +1,26 @@
-
 .error-main {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: 500px;
-    justify-content: center;
-    text-align: center;
-  }
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  justify-content: center;
+  text-align: center;
 
-.error-title {
+  .error-title {
     font-size: 300px;
     letter-spacing: 50px;
     text-shadow: 15px 10px 0px rgba(8, 63, 12, 0.319);
     color: #00bc77;
 
+    span {
+      font-size: 60px;
+    }
+
+    .error-description {
+      color: #9da49d;
+      font-size: 40px;
+    }
+
   }
 
-span {
-    font-size: 60px;
 }
-  
-.error-description {
-    color: #9da49d;
-    font-size: 40px;
-  }
-  
-  
