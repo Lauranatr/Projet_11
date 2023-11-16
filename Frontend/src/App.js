@@ -1,7 +1,7 @@
 // IMPORTS
 import React from "react";
-
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 // PAGES
 import Home from "./pages/Home";
@@ -12,8 +12,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 function App() {
+  const token = useSelector((state ) => state.auth.token);
   return (
-   
       
         <BrowserRouter>
           <Header />
@@ -21,7 +21,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/profile" element={<User />} />
+            <Route
+          path="/profile"
+          element={token ? <User /> : <Navigate to="/signin" />}
+        />
             <Route path="*" element={<Error />} />
           </Routes>
 
