@@ -11,23 +11,26 @@ const User = () => {
 
   async function fetchUserProfile() {
     try {
-      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          status: 0,
-          message: "string",
-          body: {
-            id: "string",
-            email: "string",
+      const response = await fetch(
+        "http://localhost:3001/api/v1/user/profile",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            accept: "application/json",
+            "Content-Type": "application/json",
           },
-        }),
-      });
-  
+          body: JSON.stringify({
+            status: 0,
+            message: "string",
+            body: {
+              id: "string",
+              email: "string",
+            },
+          }),
+        }
+      );
+
       if (response.status === 200) {
         const userProfile = await response.json();
         // Assurez-vous que les propriétés correspondent exactement à ce que le serveur renvoie
@@ -45,10 +48,8 @@ const User = () => {
   }
 
   useEffect(() => {
-    
     fetchUserProfile();
-
-  }); 
+  });
 
   return (
     <div>

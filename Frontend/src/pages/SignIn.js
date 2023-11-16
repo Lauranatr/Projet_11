@@ -76,7 +76,7 @@ const SignIn = () => {
               onChange={(e) => setRememberMe(e.target.checked)}
             />
           </div>
-          <div className="error"></div>
+          <div className="error">{errorMsg}</div>
           <button type="submit" className="signin-button">
             Sign In
           </button>

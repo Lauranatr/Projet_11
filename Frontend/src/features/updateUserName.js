@@ -2,8 +2,9 @@ import { setUpdateUserName } from "../features/profileSlice";
 
 export const updateUserProfile = (newUsername) => async (dispatch) => {
   try {
-    const userToken = localStorage.getItem("token"); // Obtenez le token d'utilisateur à partir du stockage local
-    const response = await fetch("http://localhost:3001/api/v1/user-profile", {
+    const userToken = localStorage.getItem("token");
+    console.log("newUsername", newUsername)
+    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
       method: "PUT", // Utilisez la méthode PUT pour mettre à jour le nom d'utilisateur
       headers: {
         Authorization: `Bearer ${userToken}`,
