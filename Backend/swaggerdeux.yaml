@@ -1,0 +1,224 @@
+swagger: "2.0"
+info:
+  title: Bank Argent API Documentation
+  description: Contains API endpoints for managing user accounts and transactions
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/account/{accountId}:
+    get:
+      tags:
+        - User Module
+      summary: Retrieve User's Account
+      description: Retrieve details of a user's bank account
+      parameters:
+        - name: accountId
+          in: path
+          description: ID of the user's account to retrieve
+          required: true
+          type: string
+      responses:
+        200:
+          description: User's account retrieved successfully
+          schema:
+            $ref: "#/definitions/Account"
+        400:
+          description: Invalid Fields
+        404:
+          description: User not found
+        500:
+          description: Internal Server Error
+
+  /user/account/transaction/{accountId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Retrieve User's Transactions
+      description: Retrieve transactions from the user's account
+      parameters:
+        - name: accountId
+          in: path
+          description: ID of the user's account to retrieve transactions from
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Transactions profile retrieved successfully
+          schema:
+            $ref: "#/definitions/TransactionsResponse"
+        400:
+          description: Invalid Fields
+        500:
+          description: Internal Server Error
+
+  /user/transaction/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Read Selected Transaction
+      description: API for reading details of a selected transaction
+      parameters:
+        - name: transactionId
+          in: path
+          description: ID of the transaction to retrieve
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Transaction profile retrieved successfully
+          schema:
+            $ref: "#/definitions/TransactionResponse"
+        400:
+          description: Invalid Fields
+        500:
+          description: Internal Server Error
+
+  /user/transaction/annotation/{transactionId}:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Update User Transaction Annotation
+      description: API for updating the annotation in a user's transaction
+      parameters:
+        - name: transactionId
+          in: path
+          description: ID of the transaction to update annotation
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionAnnotation"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: User transaction annotation updated successfully
+          schema:
+            $ref: "#/definitions/TransactionAnnotationResponse"
+        400:
+          description: Invalid Fields
+        500:
+          description: Internal Server Error
+
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Delete User Transaction Annotation
+      description: API for deleting an annotation in a user's transaction
+      parameters:
+        - name: transactionId
+          in: path
+          description: ID of the transaction with the annotation to delete
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        200:
+          description: User transaction annotation deleted successfully
+          schema:
+            $ref: "#/definitions/TransactionAnnotationResponse"
+        400:
+          description: Invalid Fields
+        500:
+          description: Internal Server Error
+
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  Account:
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: Unique identifier for the account.
+      balance:
+        type: number
+        description: Current balance of the account.
+  TransactionsResponse:
+    type: object
+    properties:
+      numberOfTransactions:
+        type: number
+        description: Number of transactions in the response.
+      transactions:
+        type: array
+        items:
+          type: object
+          properties:
+            transactionId:
+              type: string
+              description: Unique identifier for the transaction.
+            date:
+              type: string
+              description: Date of the transaction.
+            amount:
+              type: number
+              description: Transaction amount.
+            place:
+              type: string
+              description: Location or description of the transaction.
+            balance:
+              type: number
+              description: Account balance after the transaction.
+  TransactionResponse:
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: Unique identifier for the transaction.
+      date:
+        type: string
+        description: Date of the transaction.
+      amount:
+        type: number
+        description: Transaction amount.
+      place:
+        type: string
+        description: Location or description of the transaction.
+      balance:
+        type: number
+        description: Account balance after the transaction.
+      transactionType:
+        type: string
+        description: Type of the transaction.
+      category:
+        type: string
+        description: Category of the transaction.
+      comment:
+        type: string
+        description: Additional comment or notes for the transaction.
+  TransactionAnnotationResponse:
+    properties:
+      category:
+        type: string
+        description: Category associated with the transaction.
+      comment:
+        type: string
+        description: Comment associated with the transaction.
+  TransactionAnnotation:
+    type: object
+    properties:
+      category:
+        type: string
+        description: Category associated with the transaction.
+      comment:
+        type: string
+        description: Comment associated with the transaction.

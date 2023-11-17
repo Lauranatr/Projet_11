@@ -34,7 +34,6 @@ const User = () => {
 
       if (response.status === 200) {
         const userProfile = await response.json();
-        // Assurez-vous que les propriétés correspondent exactement à ce que le serveur renvoie
         const { email, userName, firstName, lastName } = userProfile.body;
         dispatch(setProfile({ email, userName, firstName, lastName }));
       } else if (response.status === 401) {
