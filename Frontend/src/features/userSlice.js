@@ -17,7 +17,9 @@ const userSlice = createSlice({
       state.token = action.payload.body.token;
     },
     setSignOut: (state) => {
+      console.log("Token avant déconnexion :", state.token);
       state.token = null;
+      console.log("Token après déconnexion :", state.token);
     },
   },
 });

@@ -13,6 +13,10 @@ const SignIn = () => {
 
   const dispatch = useDispatch();
 
+  const saveCredentialsToLocalStorage = (token) => {
+    localStorage.setItem("token", token);
+  };
+
   const handleLoginEvent = async (e) => {
     e.preventDefault();
     try {
@@ -28,10 +32,14 @@ const SignIn = () => {
         }),
       });
 
+      
       if (response.ok) {
         const dataUser = await response.json();
         dispatch(setSignIn(dataUser));
-        localStorage.setItem("token", dataUser.body.token);
+        if (rememberMe) {
+          saveCredentialsToLocalStorage(dataUser.body.token);
+        }
+    
         navigate("/profile");
       } else {
         setErrorMsg("Identifiant ou mot de passe incorrect!");
