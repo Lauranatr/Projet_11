@@ -86,7 +86,7 @@ paths:
           description: Internal Server Error
 
   /user/transaction/annotation/{transactionId}:
-    put:
+    patch:  # Changé de put à patch
       security:
         - Bearer: []
       tags:
@@ -105,31 +105,6 @@ paths:
       responses:
         200:
           description: User transaction annotation updated successfully
-          schema:
-            $ref: "#/definitions/TransactionAnnotationResponse"
-        400:
-          description: Invalid Fields
-        500:
-          description: Internal Server Error
-
-    delete:
-      security:
-        - Bearer: []
-      tags:
-        - User Module
-      summary: Delete User Transaction Annotation
-      description: API for deleting an annotation in a user's transaction
-      parameters:
-        - name: transactionId
-          in: path
-          description: ID of the transaction with the annotation to delete
-          required: true
-          type: string
-      produces:
-        - application/json
-      responses:
-        200:
-          description: User transaction annotation deleted successfully
           schema:
             $ref: "#/definitions/TransactionAnnotationResponse"
         400:
