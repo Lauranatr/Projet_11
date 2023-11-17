@@ -86,7 +86,7 @@ paths:
           description: Internal Server Error
 
   /user/transaction/annotation/{transactionId}:
-    patch:  # Changé de put à patch
+    patch:  
       security:
         - Bearer: []
       tags:
