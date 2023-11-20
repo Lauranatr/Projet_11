@@ -9,40 +9,46 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /user/account/{accountId}:
+  /accounts/{accountsId}:
     get:
       tags:
         - User Module
-      summary: Retrieve User's Account
-      description: Retrieve details of a user's bank account
+      summary: Retrieve User's Accounts
+      description: Retrieve details of a user's bank accounts
+      security:
+        - tokenAuth: []
       parameters:
-        - name: accountId
+        - name: accountsId
           in: path
-          description: ID of the user's account to retrieve
+          description: ID of the user's accounts to retrieve
           required: true
           type: string
       responses:
         200:
-          description: User's account retrieved successfully
+          description: User's accounts retrieved successfully
           schema:
-            $ref: "#/definitions/Account"
+            $ref: "#/definitions/Accounts"
         400:
           description: Invalid Fields
+        401:
+          description: Unauthorized. Invalid or missing token.
+        403:
+          description: Forbidden. Access denied.
         404:
           description: User not found
         500:
           description: Internal Server Error
 
-  /user/account/transaction/{accountId}:
+  /accounts/{accountsId}/transactions:
     get:
-      security:
-        - Bearer: []
       tags:
         - User Module
       summary: Retrieve User's Transactions
       description: Retrieve transactions from the user's account
+      security:
+        - tokenAuth: []
       parameters:
-        - name: accountId
+        - name: accountsId
           in: path
           description: ID of the user's account to retrieve transactions from
           required: true
@@ -56,19 +62,23 @@ paths:
             $ref: "#/definitions/TransactionsResponse"
         400:
           description: Invalid Fields
+        401:
+          description: Unauthorized. Invalid or missing token.
+        403:
+          description: Forbidden. Access denied.
         500:
           description: Internal Server Error
 
-  /user/transaction/{transactionId}:
+  /transaction/{transactionsId}:
     get:
       security:
-        - Bearer: []
+        - tokenAuth: []
       tags:
         - User Module
       summary: Read Selected Transaction
       description: API for reading details of a selected transaction
       parameters:
-        - name: transactionId
+        - name: transactionsId
           in: path
           description: ID of the transaction to retrieve
           required: true
@@ -77,26 +87,35 @@ paths:
         - application/json
       responses:
         200:
-          description: Transaction profile retrieved successfully
+          description: Transactions profile retrieved successfully
           schema:
             $ref: "#/definitions/TransactionResponse"
         400:
           description: Invalid Fields
+        401:
+          description: Unauthorized. Invalid or missing token.
+        403:
+          description: Forbidden. Access denied.
         500:
           description: Internal Server Error
 
-  /user/transaction/annotation/{transactionId}:
+  /transactions/{transactionsId}/annotation:
     patch:  
       security:
-        - Bearer: []
+        - tokenAuth: []
       tags:
         - User Module
       summary: Update User Transaction Annotation
       description: API for updating the annotation in a user's transaction
       parameters:
-        - name: transactionId
+        - name: transactionsId
           in: path
           description: ID of the transaction to update annotation
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Transaction annotation data
           required: true
           schema:
             $ref: "#/definitions/TransactionAnnotation"
@@ -109,16 +128,21 @@ paths:
             $ref: "#/definitions/TransactionAnnotationResponse"
         400:
           description: Invalid Fields
+        401:
+          description: Unauthorized. Invalid or missing token.
+        403:
+          description: Forbidden. Access denied.
         500:
           description: Internal Server Error
 
 securityDefinitions:
-  Bearer:
+  tokenAuth:
     type: apiKey
     name: Authorization
     in: header
+    description: Token-based authentication. Provide the token in the format 'Bearer {token}'.
 definitions:
-  Account:
+  Accounts:
     type: object
     properties:
       accountId:

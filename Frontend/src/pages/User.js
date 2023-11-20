@@ -7,30 +7,18 @@ import Account from "../components/Account";
 const User = () => {
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile);
-
-  const token = localStorage.token;
+  const token = useSelector((state) => state.auth.token);
 
   async function fetchUserProfile() {
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/v1/user/profile",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            status: 0,
-            message: "string",
-            body: {
-              id: "string",
-              email: "string",
-            },
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
 
       if (response.status === 200) {
         const userProfile = await response.json();
