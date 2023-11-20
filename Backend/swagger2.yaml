@@ -69,7 +69,7 @@ paths:
         500:
           description: Internal Server Error
 
-  /transaction/{transactionsId}:
+  /transactions/{transactionsId}:
     get:
       security:
         - tokenAuth: []
