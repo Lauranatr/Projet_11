@@ -23,6 +23,13 @@ paths:
           description: ID of the user's accounts to retrieve
           required: true
           type: string
+        - in : header
+          name : Authorization
+          type : string
+          description : Attach Bearer JWT token
+          required : true
+      produces : 
+      - application/json    
       responses:
         200:
           description: User's accounts retrieved successfully
@@ -52,9 +59,14 @@ paths:
           in: path
           description: ID of the user's account to retrieve transactions from
           required: true
-          type: string
-      produces:
-        - application/json
+          type: string 
+        - in : header
+          name : Authorization
+          type : string
+          description : Attach Bearer JWT token
+          required : true
+      produces : 
+      - application/json
       responses:
         200:
           description: Transactions profile retrieved successfully
@@ -83,8 +95,13 @@ paths:
           description: ID of the transaction to retrieve
           required: true
           type: string
-      produces:
-        - application/json
+        - in : header
+          name : Authorization
+          type : string
+          description : Attach Bearer JWT token
+          required : true
+      produces : 
+      - application/json
       responses:
         200:
           description: Transactions profile retrieved successfully
@@ -113,14 +130,19 @@ paths:
           description: ID of the transaction to update annotation
           required: true
           type: string
+        - in : header
+          name : Authorization
+          type : string
+          description : Attach Bearer JWT token
+          required : true  
         - in: body
           name: body
           description: Transaction annotation data
           required: true
           schema:
             $ref: "#/definitions/TransactionAnnotation"
-      produces:
-        - application/json
+      produces : 
+      - application/json    
       responses:
         200:
           description: User transaction annotation updated successfully
